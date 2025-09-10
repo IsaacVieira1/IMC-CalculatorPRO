@@ -30,7 +30,6 @@ jobs:
         with:
           dotnet-version: 8.0.201
 
-
       - name: Install .NET Wasm Tools
         run: dotnet workload install wasm-tools
 
@@ -41,13 +40,13 @@ jobs:
         run: dotnet build -c Release --no-restore
 
       - name: Publish .NET
-        run: dotnet publish Imc.csproj -c:Release -o docs --nologo
+        run: dotnet publish Imc.csproj -c:Release -o release --nologo
 
       - name: Copy index.html to 404.html
-        run: cp docs/wwwroot/index.html docs/wwwroot/404.html
+        run: cp release/wwwroot/index.html release/wwwroot/404.html
 
       - name: Add .nojekyll file
-        run: touch docs/wwwroot/.nojekyll
+        run: touch release/wwwroot/.nojekyll
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -55,7 +54,7 @@ jobs:
       - name: Upload
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'docs/wwwroot'
+          path: 'release/wwwroot'
 
       - name: Deploy
         id: deployment
